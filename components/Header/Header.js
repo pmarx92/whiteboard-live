@@ -1,3 +1,11 @@
+import styled from "styled-components";
+
 export default function Header() {
-  return <h1>Project Under Construction</h1>;
+  return <StyledHeadline>Project Under Construction</StyledHeadline>;
 }
+const StyledHeadline = styled.h1`
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  color: var(--white);
+`;

@@ -2,7 +2,8 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
       :root {
-          --backgroundColor-light: #f2f0e9;
+          --backgroundColor-light: #272b33;
+          --backgroundColor-dark: #0a0c10;
           --white: #fff;
       }
   
@@ -12,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
          box-sizing: border-box;
          padding: 0;
          margin: 0;
+      
       }
         body {
           background-color: var(--backgroundColor-light);
