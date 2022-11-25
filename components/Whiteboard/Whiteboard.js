@@ -21,16 +21,26 @@ export default function Whiteboard() {
     };
 
     setItemList([...itemList].concat(newCard));
-    console.log(itemList);
+    setActiveAdd(false);
   };
 
   const onDelete = (id) => {
     setItemList([...itemList].filter((item) => item.id !== id));
   };
 
-  /*   const editItem = () => {
-    setItemList([...itemList].map((item) => item.id === id ? item.headline = editHeadline : item ?? item.textInput = editTextInput : item))
-  } */
+  const editItem = (id) => {
+    setItemList(
+      itemList.map((item) =>
+        item.id === id
+          ? {
+              headline: editHeadline,
+              textInput: editTextarea,
+            }
+          : item
+      )
+    );
+    setActiveEdit(false);
+  };
 
   return (
     <>
@@ -63,45 +73,51 @@ export default function Whiteboard() {
           </StyledForm>
         ) : null}
 
-        {activeEdit ? (
-          <StyledForm onSubmit={onSubmit}>
-            <label>Headline:</label>
-            <input
-              type="text"
-              name="headline"
-              id="headline"
-              onChange={(e) => setEditHeadline(e.target.value)}
-              required
-            />
-            <label>ToDo:</label>
-            <textarea
-              type="text"
-              name="todo"
-              id="todo"
-              onChange={(e) => setEditTextArea(e.target.value)}
-              required
-            />
-            <StyledButton type="submit">Submit</StyledButton>
-          </StyledForm>
-        ) : null}
-
         {itemList.map((item) => {
           return (
             <>
-              <ContentContainer key={item.id}>
-                <CardNavigation>
-                  <StyledCardButton onClick={() => setActiveEdit(!activeEdit)}>
-                    Edit
-                  </StyledCardButton>
-                  <StyledCardButton onClick={() => onDelete(item.id)}>
-                    Delete
-                  </StyledCardButton>
-                </CardNavigation>
-                <TextContainer>
-                  <p>Headline: {item.headline}</p>
-                  <p>Text: {item.textInput}</p>
-                </TextContainer>
-              </ContentContainer>
+              {activeEdit ? (
+                <>
+                  <StyledEditForm>
+                    <label>Headline:</label>
+                    <input
+                      type="text"
+                      name="editheadline"
+                      id="editheadline"
+                      onChange={(e) => setEditHeadline(e.target.value)}
+                      required
+                    />
+                    <label>ToDo:</label>
+                    <textarea
+                      type="text"
+                      name="editTodo"
+                      id="editTodo"
+                      onChange={(e) => setEditTextArea(e.target.value)}
+                      required
+                    />
+                    <StyledButton onClick={() => editItem(item.id)}>
+                      Submit Edit
+                    </StyledButton>
+                  </StyledEditForm>
+                </>
+              ) : (
+                <ContentContainer key={item.id}>
+                  <CardNavigation>
+                    <StyledCardButton
+                      onClick={() => setActiveEdit(!activeEdit)}
+                    >
+                      Edit
+                    </StyledCardButton>
+                    <StyledCardButton onClick={() => onDelete(item.id)}>
+                      Delete
+                    </StyledCardButton>
+                  </CardNavigation>
+                  <TextContainer>
+                    <p>Headline: {item.headline}</p>
+                    <p>Text: {item.textInput}</p>
+                  </TextContainer>
+                </ContentContainer>
+              )}
             </>
           );
         })}
@@ -151,7 +167,18 @@ const StyledForm = styled.form`
   box-shadow: 0 0 4px var(--backgroundColor-dark);
   background-color: var(--backgroundColor-light);
 `;
-
+const StyledEditForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 19px;
+  margin: 0 auto;
+  color: var(--white);
+  max-width: 25%;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 4px var(--backgroundColor-dark);
+  background-color: var(--backgroundColor-light);
+`;
 const ContentContainer = styled.div`
   width: 250px;
   font-size: 18px;
