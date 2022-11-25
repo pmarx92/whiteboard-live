@@ -45,7 +45,6 @@ export default function Whiteboard() {
   return (
     <>
       <StyledContainer>
-        {/*  <StyledContent>Whiteboard</StyledContent> */}
         <Navigation>
           <StyledButton onClick={() => setActiveAdd(!activeAdd)}>
             Add Todo
@@ -132,11 +131,6 @@ const StyledContainer = styled.div`
   margin: 0.2rem auto;
   background-color: var(--white);
   border-radius: 7px;
-`;
-const StyledContent = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 const Navigation = styled.div`
   display: flex;
