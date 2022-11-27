@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { nanoid } from "nanoid";
+import Draggable from "react-draggable";
 
 export default function Whiteboard() {
   const [activeAdd, setActiveAdd] = useState(false);
@@ -100,22 +101,24 @@ export default function Whiteboard() {
                   </StyledEditForm>
                 </>
               ) : (
-                <ContentContainer key={item.id}>
-                  <CardNavigation>
-                    <StyledCardButton
-                      onClick={() => setActiveEdit(!activeEdit)}
-                    >
-                      Edit
-                    </StyledCardButton>
-                    <StyledCardButton onClick={() => onDelete(item.id)}>
-                      Delete
-                    </StyledCardButton>
-                  </CardNavigation>
-                  <TextContainer>
-                    <p>Headline: {item.headline}</p>
-                    <p>Text: {item.textInput}</p>
-                  </TextContainer>
-                </ContentContainer>
+                <Draggable>
+                  <ContentContainer key={item.id}>
+                    <CardNavigation>
+                      <StyledCardButton
+                        onClick={() => setActiveEdit(!activeEdit)}
+                      >
+                        Edit
+                      </StyledCardButton>
+                      <StyledCardButton onClick={() => onDelete(item.id)}>
+                        Delete
+                      </StyledCardButton>
+                    </CardNavigation>
+                    <TextContainer>
+                      <p>Headline: {item.headline}</p>
+                      <p>Text: {item.textInput}</p>
+                    </TextContainer>
+                  </ContentContainer>
+                </Draggable>
               )}
             </>
           );
